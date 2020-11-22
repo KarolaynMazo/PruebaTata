@@ -12,7 +12,7 @@ public class Main {
             @Override
             public void run() {
                 JFrame frame = new PuntoDos2();
-                frame.setSize(800,400);
+                frame.setSize(800,500);
                 frame.setVisible(true);
             }
         });

@@ -4,7 +4,9 @@ import Punto2.Funcionalidad.Lista;
 import Punto2.Funcionalidad.Nodo;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,23 +16,23 @@ public class PuntoDos2 extends JFrame {
     private JTextField celular;
     private JTextField ciudad;
     private JTextField ingreso;
-    private JTable tabla;
     private JPanel panel1;
     private JButton generarReporteButton;
     private JButton buscarButton;
+    private JTable tablaSi;
+    private JButton eliminarButton;
 
     Lista empleados = new Lista();
     DefaultTableModel tb = new DefaultTableModel();
 
 
     public PuntoDos2(){
-
         setContentPane(panel1);
 
         //tabla
-        tb = (DefaultTableModel) tabla.getModel();
+        tb = (DefaultTableModel) tablaSi.getModel();
 
-        tb.addColumn("Nombre y Apellido");
+        tb.addColumn("Nombre y apellido");
         tb.addColumn("Celular");
         tb.addColumn("Ciudad");
         tb.addColumn("Ing Mensual");
@@ -54,14 +56,15 @@ public class PuntoDos2 extends JFrame {
                     JOptionPane.showMessageDialog(null,"Todos los campos deben estar llenos");
 
                 }else{
-                    tabla.setModel(tb);
+                    tablaSi.setModel(tb);
                     int cel = Integer.parseInt(celular.getText());
                     int IngMen = Integer.parseInt(ingreso.getText());
                     empleados.Insertar(nombre.getText(),apellido.getText(),cel,ciudad.getText(),IngMen);
                     empleados.Mostrar();
                    llenartabla();
                    limpiar();
-                   tabla.setVisible(true);
+                   tablaSi.getModel();
+                   tablaSi.setVisible(true);
 
                 }
 
@@ -76,24 +79,54 @@ public class PuntoDos2 extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nombreB = JOptionPane.showInputDialog("introduzca el nombre a buscar");
-                Nodo referencia = empleados.buscar(nombreB);
 
+                if(empleados.estaVacio()){
+                    JOptionPane.showMessageDialog(null,"Lista de empleados esta vacia, agrege primero");
+                }else{
+                    Nodo referencia = empleados.buscar(nombreB);
 
-                nombre.setText( referencia.getNombre());
-                apellido.setText(referencia.getApellido());
-                celular.setText(Integer.toString(referencia.getCelular()));
-                ciudad.setText(referencia.getCiudad());
-                ingreso.setText(Integer.toString(referencia.getIngMensual()));
+                    System.out.println(referencia);
+
+                    nombre.setText( referencia.getNombre());
+                    apellido.setText(referencia.getApellido());
+                    celular.setText(Integer.toString(referencia.getCelular()));
+                    ciudad.setText(referencia.getCiudad());
+                    ingreso.setText(Integer.toString(referencia.getIngMensual()));
+
+                }
+
             }
         });
+
+       eliminarButton.addActionListener(new ActionListener(){
+           @Override
+           public void actionPerformed(ActionEvent e) {
+
+               int index = tablaSi.getSelectedRow();
+               if(index == -1){
+                   JOptionPane.showMessageDialog(null,"Debe seleccionar una fila en la tabla");
+               }
+               else{
+
+                   empleados.eliminarNodo(index);
+                   tb.removeRow(index);
+                   limpiar();
+               }
+
+
+           }
+       });
 
 
 
     }
     public void llenartabla(){
+
+
+
         Nodo x = empleados.getCabeza();
         Object O[] = null;
-        int i =1;
+        int i =0;
         int impuesto;
 
         while(x != null){
@@ -105,7 +138,7 @@ public class PuntoDos2 extends JFrame {
             }
 
             tb.addRow(O);
-            tb.setValueAt(x.getNombre()+x.getApellido(),i,0);
+            tb.setValueAt(x.getNombre()+""+x.getApellido(),i,0);
             tb.setValueAt(x.getCelular(), i,1);
             tb.setValueAt(x.getCiudad(), i,2);
             tb.setValueAt(x.getIngMensual(), i,3);
@@ -116,9 +149,7 @@ public class PuntoDos2 extends JFrame {
             i++;
         x=x.getLiga();
         }
-
-
-
+        this.tablaSi.setModel(tb);
 
     }
 
@@ -128,9 +159,7 @@ public class PuntoDos2 extends JFrame {
         celular.setText("");
         ciudad.setText("");
         ingreso.setText("");
-        tabla.updateUI();
+        tablaSi.updateUI();
     }
-
-
 
 }

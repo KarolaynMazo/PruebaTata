@@ -10,6 +10,7 @@ public class Nodo {
     int ingTrimestral;
     int ingSemestral ;
     int ingAnual ;
+    int posicion;
     public Nodo(String nombre, String apellido, int celular, String ciudad, int ingMensual) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -19,6 +20,7 @@ public class Nodo {
         this.ingTrimestral = ingMensual*3;
         this.ingSemestral = ingMensual *6;
         this.ingAnual = ingMensual * 12;
+        this.posicion = 0;
     }
 
     public String getNombre() {
@@ -79,5 +81,13 @@ public class Nodo {
 
     public int getIngAnual() {
         return ingAnual;
+    }
+
+    public int getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
     }
 }
