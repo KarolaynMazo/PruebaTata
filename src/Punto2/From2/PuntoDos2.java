@@ -32,7 +32,8 @@ public class PuntoDos2 extends JFrame {
         //tabla
         tb = (DefaultTableModel) tablaSi.getModel();
 
-        tb.addColumn("Nombre y apellido");
+        tb.addColumn("Nombre ");
+        tb.addColumn("Apellido");
         tb.addColumn("Celular");
         tb.addColumn("Ciudad");
         tb.addColumn("Ing Mensual");
@@ -103,16 +104,20 @@ public class PuntoDos2 extends JFrame {
            public void actionPerformed(ActionEvent e) {
 
                int index = tablaSi.getSelectedRow();
-               if(index == -1){
+               if(index <0){
                    JOptionPane.showMessageDialog(null,"Debe seleccionar una fila en la tabla");
                }
                else{
+                    Nodo x = empleados.buscar(tablaSi.getValueAt(index,0).toString());
+                   System.out.println(tablaSi.getValueAt(index,0).toString());
+                    if(x!=null){
+                        empleados.eliminarNodo(x.getPosicion());
+                        tb.removeRow(index);
+                        JOptionPane.showMessageDialog(null, "El empleado fue eliminado con exito");
+                    }
 
-                   empleados.eliminarNodo(index);
-                   tb.removeRow(index);
-                   limpiar();
                }
-
+               limpiar();
 
            }
        });
@@ -138,14 +143,15 @@ public class PuntoDos2 extends JFrame {
             }
 
             tb.addRow(O);
-            tb.setValueAt(x.getNombre()+""+x.getApellido(),i,0);
-            tb.setValueAt(x.getCelular(), i,1);
-            tb.setValueAt(x.getCiudad(), i,2);
-            tb.setValueAt(x.getIngMensual(), i,3);
-            tb.setValueAt(x.getIngTrimestral(), i,4);
-            tb.setValueAt(x.getIngSemestral(), i,5);
-            tb.setValueAt(x.getIngAnual(), i,6);
-            tb.setValueAt(impuesto,i,7);
+            tb.setValueAt(x.getNombre(),i,0);
+            tb.setValueAt(x.getApellido(),i,1);
+            tb.setValueAt(x.getCelular(), i,2);
+            tb.setValueAt(x.getCiudad(), i,3);
+            tb.setValueAt(x.getIngMensual(), i,4);
+            tb.setValueAt(x.getIngTrimestral(), i,5);
+            tb.setValueAt(x.getIngSemestral(), i,6);
+            tb.setValueAt(x.getIngAnual(), i,7);
+            tb.setValueAt(impuesto,i,8);
             i++;
         x=x.getLiga();
         }
@@ -161,5 +167,7 @@ public class PuntoDos2 extends JFrame {
         ingreso.setText("");
         tablaSi.updateUI();
     }
+
+
 
 }

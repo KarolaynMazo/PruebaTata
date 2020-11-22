@@ -1,6 +1,6 @@
 package Punto1.From;
 
-import Funcionalidades.Meses;
+import Punto1.Funcionalidades.Meses;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
