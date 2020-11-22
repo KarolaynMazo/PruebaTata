@@ -1,21 +1,21 @@
-package From;
+package Punto2;
 
+
+import Punto2.From2.PuntoDos2;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 public class Main {
-    public static void main(String[]args){
+    public static void main(String[] args) {
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JFrame frame = new Principal();
+                JFrame frame = new PuntoDos2();
                 frame.setSize(800,400);
                 frame.setVisible(true);
-
-
             }
         });
+
     }
 }

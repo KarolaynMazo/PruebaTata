@@ -1,4 +1,4 @@
-package From;
+package Punto1.From;
 
 import Funcionalidades.Meses;
 import javax.swing.*;
@@ -9,24 +9,23 @@ import java.util.ArrayList;
 
 
 
-public class Principal extends JFrame{
-    private JTextField nombreAdmin;
+public class PuntoUno extends JFrame{
+    private JTextField nombre;
     private JTextField apellidoAdmin;
-    private JTextField ganaciaEnero;
+    private JTextField celular;
     private JButton generarReporteButton;
     private JTable tabla;
     private JPanel panel1;
+
 
 
     ArrayList meses = new ArrayList();
     DefaultTableModel tb;
     Meses listado = new Meses();
 
-    public Principal(){
+    public PuntoUno(){
 
         setContentPane(panel1);
-        
-        
 
         //tabla
         tb = (DefaultTableModel)tabla.getModel();
@@ -51,12 +50,12 @@ public class Principal extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(nombreAdmin.getText().equals("") || apellidoAdmin.getText().equals("") || ganaciaEnero.getText().equals("")){
+                if(nombre.getText().equals("") || apellidoAdmin.getText().equals("") || celular.getText().equals("")){
                     JOptionPane.showMessageDialog(null,"Todos los campos deben estar llenos");
 
                 }else{
                     tabla.setModel(tb);
-                    int enero = Integer.parseInt(ganaciaEnero.getText());
+                    int enero = Integer.parseInt(celular.getText());
                     double febrero = listado.Febrero(enero);
                     double marzo = listado.Marzo(enero);
                     double abril = listado.Abril(enero);
@@ -91,7 +90,7 @@ public class Principal extends JFrame{
 
                     for(int j=1; j< 8; j++){
                     tb.addRow(O);
-                    tb.setValueAt(nombreAdmin.getText()+" "+apellidoAdmin.getText(),0,0);
+                    tb.setValueAt(nombre.getText()+" "+apellidoAdmin.getText(),0,0);
                     tb.setValueAt(meses.get(i), 0,j);
                     tb.setValueAt(meses.get(i), 0,j);
                     tb.setValueAt(meses.get(i), 0,j);
@@ -109,7 +108,8 @@ public class Principal extends JFrame{
 
         }
 
-    }
+
+}
 
 
 
